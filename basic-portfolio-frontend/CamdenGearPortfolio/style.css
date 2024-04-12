@@ -19,7 +19,8 @@
 
 /* Page Wrapper --------------------------------------------- */
 
-.page{
+.app{
     index: 3;
     position: absolute;
+    color: rgb(0,0,0)
 }

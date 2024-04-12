@@ -1,45 +1,67 @@
 import './App.css'
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Single from "./pages/Single";
+import Write from "./pages/Write";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import AuthContextProvider from './context/authContext.jsx';
 
-function Home() {
-  return <h2>Welcome to the Home page</h2>;
-}
+// Create a Layout component that defines the structure of the web page
+const Layout = () => {
+  return (
+        <>
+          <Navbar />
+          <Outlet />
+          <Footer />
+        </>
+      );
+    };
 
-function About() {
-  return <h2>Learn more about us on the About page</h2>;
-}
 
-function Contact() {
-  return <h2>Contact us through the Contact page</h2>;
-}
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />,
+    // Remember that Home, Single post and Write are the pages that will have a Navbar and a Footer
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/post/:id",
+        element: <Single />,
+      },
+      {
+        path: "/write",
+        element: <Write />,
+      },
+    ],
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
+  },
+]);
+
+
+
 
 function App() {
-
   return (
-   <Router>
-         <div>
-           <nav>
-             <ul>
-               <li>
-                 <Link to="/">Home</Link>
-               </li>
-               <li>
-                 <Link to="/about">About</Link>
-               </li>
-               <li>
-                 <Link to="/contact">Contact</Link>
-               </li>
-             </ul>
-           </nav>
-           <Routes>
-               <Route exact path="/" component={Home} />
-               <Route path="/about" component={About} />
-               <Route path="/contact" component={Contact} />
-           </Routes>
-         </div>
-
-       </Router>
+  <div className="app">
+        <div className="container">
+          <RouterProvider router={router} />
+        </div>
+      </div>
   );
 }
 
-export default App
+export default App;

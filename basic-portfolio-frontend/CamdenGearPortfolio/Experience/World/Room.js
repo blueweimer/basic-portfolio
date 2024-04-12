@@ -11,6 +11,9 @@ export default class Room{
         const cube = new THREE.Mesh( geometry, material );
         this.scene.add( cube );
 
+        var scene = new THREE.Scene(); // initialising the scene
+        this.scene.background = new THREE.Color( 0xffffff );
+
 
     }
 
